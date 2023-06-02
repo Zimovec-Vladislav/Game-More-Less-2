@@ -1,32 +1,27 @@
 const min = 0
 const max = 100
-const attCounter = 5
 
-function getUserName () {
-    const userName = prompt("Добрый день или вечер. Введите свое имя:")
-    return userName
-}
+const getRandomNumber = (maxNum) => Math.round(Math.random() * maxNum)
 
-const userName = getUserName() 
-
-const getRandomNumber = (maxLimit) => Math.round(Math.random() * maxLimit)
 const randomNumber = getRandomNumber(max)
 
-const playGame = (minLimit, maxLimit, attsNumber, number, name) => {
-    alert(`Добро пожаловать в игру "Больше или Меньше", ${name}!!! Я загадал число от ${minLimit} до ${maxLimit}. Тебе нужно угадать это число. У тебя есть ${attsNumber} попыток.`)
+alert(`Игра: Угадай число.\nДОБРО ПОЖАЛОВАТЬ на игру.\nНажмите ОК, чтобы начать.`)
 
-    for (let i = 1; i <= attCounter; i++) {
-        const answer = prompt("Введи число в поле")
-
-        if (answer > number) {
-            alert(`Загаданное число меньше. У тебя осталось ${attsNumber - i} попыток.`)
-        } else if (answer < number) {
-            alert(`Загаданное число больше. У тебя осталось ${attsNumber - i} попыток.`)
-        } else { alert(`${name}, ты победил с ${i}-й попытки. Загаданное число ${number}.`)
-        return}
-        
-    }
-    alert(`${name}, ты проиграл. Загаданное число ${number}`)
+const gamePlay = (minNum, maxNum, ranNum) => {
+   alert(`Я загадал число от ${minNum} до ${maxNum}. Тебе нужно угадать это число.${ranNum}`)
+   let userNum = prompt( `Введи свое число:` )
+   for (let i = 6; i > 0; i--) {
+      if ( userNum < ranNum ) {
+         userNum = prompt(`Загаданное число больше. У тебя ${i} попыток. Введи свое число:`)
+         } else if  (userNum > ranNum) {
+            userNum = prompt( `Загаданное число меньше. У тебя ${i} попыток. Введи свое число:` )
+            } else {
+               alert(`Поздравляю!! Ты УГАДАЛ!!! Загаданное число ${ranNum}. Число попыток `)
+               return
+            }
+   }
+   alert(`You lose`)
+   return
 }
 
-playGame(min, max, attCounter, randomNumber, userName)
+gamePlay(min, max, randomNumber)
