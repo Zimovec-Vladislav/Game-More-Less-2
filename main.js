@@ -1,27 +1,37 @@
 const min = 0
 const max = 100
-
-const getRandomNumber = (maxNum) => Math.round(Math.random() * maxNum)
-
+const attersNumber = 8
 const randomNumber = getRandomNumber(max)
 
-alert(`Игра: Угадай число.\nДОБРО ПОЖАЛОВАТЬ на игру.\nНажмите ОК, чтобы начать.`)
-
-const gamePlay = (minNum, maxNum, ranNum) => {
-   alert(`Я загадал число от ${minNum} до ${maxNum}. Тебе нужно угадать это число.${ranNum}`)
-   let userNum = prompt( `Введи свое число:` )
-   for (let i = 6; i > 0; i--) {
-      if ( userNum < ranNum ) {
-         userNum = prompt(`Загаданное число больше. У тебя ${i} попыток. Введи свое число:`)
-         } else if  (userNum > ranNum) {
-            userNum = prompt( `Загаданное число меньше. У тебя ${i} попыток. Введи свое число:` )
-            } else {
-               alert(`Поздравляю!! Ты УГАДАЛ!!! Загаданное число ${ranNum}. Число попыток `)
-               return
-            }
-   }
-   alert(`You lose`)
-   return
+function getRandomNumber(max) {
+   const randomNumber = Math.round(Math.random() * max)
+   return randomNumber
 }
 
-gamePlay(min, max, randomNumber)
+function gamePlay (min, max, attersNumber, randomNumber) {
+   alert(`Добро пожаловать на игру Больше Меньше. Я загадал число от ${min} до ${max}.`)
+
+   let playerAnswers = []
+
+   for (let i = 8; i > 0; i--) {
+         let playerAnswer = parseFloat(prompt(`Введите число:`, ''))
+
+         while (isNaN(playerAnswer) || playerAnswer > max || playerAnswer < min) {
+            playerAnswer = parseFloat(prompt(`Введите число:`, ''))
+         }
+
+         if (playerAnswer > randomNumber) {
+            alert(`Загаданное число меньше. У тебя осталось ${i} попыток`)
+            playerAnswers.push(playerAnswer)
+         } else if (playerAnswer < randomNumber) {
+            alert(`Загаданное число больше. У тебя осталось ${i} попыток`)
+            playerAnswers.push(playerAnswer)
+         } else {
+               alert(`Ты угадал!!! Использовано ${attersNumber - i} попыток. Загаданное число ${randomNumber}. Твои числа: ${playerAnswers}`)
+               return
+            }
+      }
+      alert(`Ты не угадал. Загаданное число ${randomNumber}.`)
+   }
+
+gamePlay(min, max, attersNumber, randomNumber)
